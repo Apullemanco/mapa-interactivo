@@ -19,6 +19,8 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       zoom: 2,
       minZoom: 1.5,
       maxZoom: 5,
+      maxBounds: [[-60, -180], [78, 180]],
+      maxBoundsViscosity: 1,
       zoomControl: true,
       attributionControl: true,
       worldCopyJump: true,
