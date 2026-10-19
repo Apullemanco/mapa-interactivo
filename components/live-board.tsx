@@ -2,12 +2,10 @@
 
 'use client'
 
-import { useState } from 'react'
 import type { ReactNode } from 'react'
 import useSWR from 'swr'
-import { Minus, Plus } from 'lucide-react'
 import type { BoardSnapshot } from '@/lib/store'
-import { PinLayer } from './pin-layer'
+import { LeafletMapView } from './leaflet-map'
 import { QrPanel } from './qr-panel'
 import { RegionStats } from './region-stats'
 import { RecentFeed } from './recent-feed'
@@ -34,7 +32,6 @@ export function LiveBoard({
     revalidateOnFocus: true,
   })
   const snapshot = data ?? initialSnapshot
-  const [zoom, setZoom] = useState(1)
 
   return (
     <main className="origins-shell relative min-h-dvh overflow-hidden p-5 md:p-8 lg:h-dvh lg:p-10">
@@ -51,23 +48,8 @@ export function LiveBoard({
 
       <div className="origins-map-frame absolute inset-0">
         <section aria-label="Mapa de participantes" className="origins-map absolute inset-0 flex items-center justify-center">
-          <svg
-            viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-            preserveAspectRatio="xMidYMid meet"
-            className="size-full max-h-full origin-center transition-transform duration-300"
-            style={{ transform: `scale(${zoom})` }}
-            role="img"
-            aria-label={`Mapa de puntos con ${snapshot.total} participantes registrados`}
-          >
-            <defs>
-              <filter id="pin-blur" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="0.6" /></filter>
-            </defs>
-            {land}
-            <PinLayer pins={snapshot.pins} now={snapshot.updatedAt} />
-          </svg>
-          <div className="map-controls" aria-label="Controles del mapa">
-            <button type="button" aria-label="Acercar mapa" onClick={() => setZoom((value) => Math.min(value + 0.15, 1.6))}><Plus size={18} /></button>
-            <button type="button" aria-label="Alejar mapa" onClick={() => setZoom((value) => Math.max(value - 0.15, 0.75))}><Minus size={18} /></button>
+          <div className="size-full max-h-full origin-center transition-transform duration-300">
+            <LeafletMapView pins={snapshot.pins} />
           </div>
           <div className="map-caption"><span className="map-caption-line" />Live origins map</div>
         </section>

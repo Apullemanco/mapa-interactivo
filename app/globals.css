@@ -75,7 +75,16 @@
 .live-pill { display: flex; align-items: center; gap: .55rem; border: 1px solid rgba(241,240,232,.16); border-radius: 999px; padding: .65rem .9rem; background: rgba(9,11,13,.46); color: #d5d8d0; font-size: .72rem; text-transform: uppercase; letter-spacing: .13em; backdrop-filter: blur(14px); }
 .live-dot { width: .42rem; height: .42rem; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px var(--primary); }
 .origins-map { padding: 5.5rem 5vw 4.2rem; }
-.origins-map svg { filter: drop-shadow(0 14px 32px rgba(0,0,0,.3)); }
+ .leaflet-map { width: 100%; height: 100%; min-height: 28rem; overflow: hidden; border-radius: 1.25rem; background: #101716; filter: saturate(.72) contrast(1.08) brightness(.72); box-shadow: 0 14px 32px rgba(0,0,0,.3); }
+ .leaflet-container { width: 100%; height: 100%; font-family: inherit; background: #101716; }
+ .leaflet-control-zoom { margin: 1.25rem !important; border: 1px solid rgba(241,240,232,.16) !important; border-radius: .7rem !important; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.28) !important; }
+ .leaflet-control-zoom a { width: 2.45rem !important; height: 2.45rem !important; line-height: 2.35rem !important; border: 0 !important; color: #d5d8d0 !important; background: rgba(9,11,13,.78) !important; backdrop-filter: blur(12px); }
+ .leaflet-control-zoom a + a { border-top: 1px solid rgba(241,240,232,.12) !important; }
+ .leaflet-control-zoom a:hover { color: #101716 !important; background: var(--primary) !important; }
+ .leaflet-control-attribution { background: rgba(9,11,13,.62) !important; color: #c5c9c1 !important; }
+ .leaflet-control-attribution a { color: var(--primary) !important; }
+ .leaflet-tooltip { border: 1px solid rgba(200,245,74,.35); border-radius: .55rem; color: #d5d8d0; background: rgba(9,11,13,.86); box-shadow: 0 8px 24px rgba(0,0,0,.28); }
+
 .map-controls { position: absolute; right: 2rem; top: 50%; display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(241,240,232,.16); border-radius: .7rem; background: rgba(9,11,13,.62); backdrop-filter: blur(12px); }
 .map-controls button { display: grid; place-items: center; width: 2.45rem; height: 2.45rem; color: #d5d8d0; transition: background .2s, color .2s; }
 .map-controls button + button { border-top: 1px solid rgba(241,240,232,.12); }
