@@ -21,8 +21,10 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       minZoom: 2,
       maxZoom: 5,
       // Limita el arrastre al mundo visible y rebota contra los bordes sin dejar bandas blancas.
-      maxBounds: [[-58, -180], [70, 180]],
+      maxBounds: [[-72, -180], [78, 180]],
       maxBoundsViscosity: 1,
+      inertia: true,
+      bounceAtZoomLimits: false,
       zoomControl: true,
       attributionControl: true,
       worldCopyJump: false,

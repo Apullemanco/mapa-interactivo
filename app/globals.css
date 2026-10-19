@@ -66,8 +66,11 @@
 }
 
 .origins-shell {
-  background: radial-gradient(ellipse at 52% 48%, #283431 0%, #151b1b 37%, #090b0d 78%);
+  background: radial-gradient(ellipse at 52% 48%, #344840 0%, #182321 34%, #090b0d 78%);
+  isolation: isolate;
 }
+.origins-shell::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,.48) 100%); }
+.origins-header, .origins-map { z-index: 1; }
 .origins-shell::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .2; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, black, transparent 75%); }
 .origins-header { position: relative; }
 .origin-wordmark { font-size: 1.05rem; font-weight: 700; letter-spacing: .26em; }
@@ -75,7 +78,8 @@
 .live-pill { display: flex; align-items: center; gap: .55rem; border: 1px solid rgba(241,240,232,.16); border-radius: 999px; padding: .65rem .9rem; background: rgba(9,11,13,.46); color: #d5d8d0; font-size: .72rem; text-transform: uppercase; letter-spacing: .13em; backdrop-filter: blur(14px); }
 .live-dot { width: .42rem; height: .42rem; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px var(--primary); }
 .origins-map { padding: 5.5rem 5vw 4.2rem; }
- .leaflet-map { width: 100%; height: 100%; min-height: 28rem; overflow: hidden; border-radius: 1.25rem; background: #101716; filter: saturate(.72) contrast(1.08) brightness(.72); box-shadow: 0 14px 32px rgba(0,0,0,.3); }
+ .leaflet-map { width: 100%; height: 100%; min-height: 28rem; overflow: hidden; border-radius: 1.5rem; background: #101716; filter: saturate(.78) contrast(1.08) brightness(.72); box-shadow: 0 18px 50px rgba(0,0,0,.38), 0 0 0 1px rgba(217,255,85,.08); }
+.leaflet-map::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 100px rgba(0,0,0,.48); z-index: 400; }
  .leaflet-container { width: 100%; height: 100%; font-family: inherit; background: #101716; }
  .leaflet-control-zoom { margin: 1.25rem !important; border: 1px solid rgba(241,240,232,.16) !important; border-radius: .7rem !important; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.28) !important; }
  .leaflet-control-zoom a { width: 2.45rem !important; height: 2.45rem !important; line-height: 2.35rem !important; border: 0 !important; color: #d5d8d0 !important; background: rgba(9,11,13,.78) !important; backdrop-filter: blur(12px); }
@@ -91,7 +95,8 @@
 .map-controls button:hover { background: var(--primary); color: var(--primary-foreground); }
 .map-caption { position: absolute; left: 2rem; bottom: 2rem; display: flex; align-items: center; gap: .55rem; color: #969b95; font-size: .67rem; text-transform: uppercase; letter-spacing: .2em; }
 .map-caption-line { display: inline-block; width: 1.6rem; height: 1px; background: var(--primary); }
-.qr-card { border: 1px solid rgba(241,240,232,.13); background: rgba(18,21,21,.88); box-shadow: 0 18px 55px rgba(0,0,0,.32); backdrop-filter: blur(18px); }
+.qr-card { border: 1px solid rgba(217,255,85,.22); background: linear-gradient(145deg, rgba(28,35,32,.94), rgba(12,15,15,.92)); box-shadow: 0 22px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(18px); }
+.qr-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(217,255,85,.08), transparent 42%); }
 .qr-card p:first-of-type { font-size: 1.05rem; }
 .origin-counter { color: #969b95; font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; }
 .origin-counter span { color: var(--primary); font-size: 1rem; font-weight: 700; margin-right: .35rem; }
