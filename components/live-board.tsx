@@ -1,7 +1,11 @@
 'use client'
 
+'use client'
+
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 import useSWR from 'swr'
+import { Minus, Plus } from 'lucide-react'
 import type { BoardSnapshot } from '@/lib/store'
 import { PinLayer } from './pin-layer'
 import { QrPanel } from './qr-panel'
@@ -30,65 +34,52 @@ export function LiveBoard({
     revalidateOnFocus: true,
   })
   const snapshot = data ?? initialSnapshot
+  const [zoom, setZoom] = useState(1)
 
   return (
-    <main className="flex min-h-dvh flex-col gap-6 p-5 md:p-8 lg:h-dvh lg:gap-8 lg:p-10">
-      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="flex flex-col gap-2">
-          <p className="flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            <span className="relative flex size-2.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-60" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-primary" />
-            </span>
-            Jardín de las Carreras · En vivo
-          </p>
-          <h1 className="font-heading text-5xl font-bold leading-none tracking-tight text-balance md:text-6xl xl:text-7xl">
-            ¿De dónde vienes?
-          </h1>
+    <main className="origins-shell relative min-h-dvh overflow-hidden p-5 md:p-8 lg:h-dvh lg:p-10">
+      <header className="origins-header relative z-10 flex items-start justify-between">
+        <div>
+          <p className="origin-wordmark">ORIGINS<span className="text-primary">/</span></p>
+          <p className="origin-subtitle">Jardín de las Carreras · 2026</p>
         </div>
-        <div className="flex items-baseline gap-3" aria-live="polite">
-          <span className="font-heading text-6xl font-bold tabular-nums leading-none text-primary xl:text-7xl">
-            {snapshot.total.toLocaleString('es')}
-          </span>
-          <span className="max-w-32 text-base leading-snug text-muted-foreground">
-            {snapshot.total === 1 ? 'semilla sembrada' : 'semillas sembradas'}
-          </span>
+        <div className="live-pill" aria-live="polite">
+          <span className="live-dot" />
+          <span>{snapshot.total.toLocaleString('es')} origins live</span>
         </div>
       </header>
 
-      <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
-        <section
-          aria-label="Mapa de participantes"
-          className="relative flex min-h-64 items-center justify-center"
-        >
+      <div className="origins-map-frame absolute inset-0">
+        <section aria-label="Mapa de participantes" className="origins-map absolute inset-0 flex items-center justify-center">
           <svg
             viewBox={`0 0 ${mapWidth} ${mapHeight}`}
             preserveAspectRatio="xMidYMid meet"
-            className="size-full max-h-full"
+            className="size-full max-h-full origin-center transition-transform duration-300"
+            style={{ transform: `scale(${zoom})` }}
             role="img"
             aria-label={`Mapa de puntos con ${snapshot.total} participantes registrados`}
           >
             <defs>
-              <filter id="pin-blur" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="0.6" />
-              </filter>
+              <filter id="pin-blur" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="0.6" /></filter>
             </defs>
             {land}
             <PinLayer pins={snapshot.pins} now={snapshot.updatedAt} />
           </svg>
-          {snapshot.total === 0 && (
-            <p className="absolute inset-x-0 bottom-4 text-center text-lg text-muted-foreground text-pretty">
-              El jardín está listo. Escanea el código y siembra el primer punto.
-            </p>
-          )}
+          <div className="map-controls" aria-label="Controles del mapa">
+            <button type="button" aria-label="Acercar mapa" onClick={() => setZoom((value) => Math.min(value + 0.15, 1.6))}><Plus size={18} /></button>
+            <button type="button" aria-label="Alejar mapa" onClick={() => setZoom((value) => Math.max(value - 0.15, 0.75))}><Minus size={18} /></button>
+          </div>
+          <div className="map-caption"><span className="map-caption-line" />Live origins map</div>
         </section>
-
-        <aside className="flex min-h-0 flex-col gap-5">
-          <QrPanel url={registerUrl} />
-          <RegionStats regions={snapshot.regions} total={snapshot.total} />
-          <RecentFeed recent={snapshot.recent} now={snapshot.updatedAt} />
-        </aside>
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-5 md:p-8 lg:p-10">
+          <div />
+          <div className="pointer-events-auto ml-auto flex w-full max-w-sm flex-col gap-4 lg:w-80">
+            <QrPanel url={registerUrl} />
+            <div className="origin-counter"><span>{snapshot.total.toLocaleString('es')}</span> locations connected</div>
+          </div>
+        </div>
       </div>
+      <div className="sr-only"><RegionStats regions={snapshot.regions} total={snapshot.total} /><RecentFeed recent={snapshot.recent} now={snapshot.updatedAt} /></div>
     </main>
   )
 }

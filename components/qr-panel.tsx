@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react'
 export function QrPanel({ url }: { url: string }) {
   const display = url.replace(/^https?:\/\//, '')
   return (
-    <div className="flex items-center gap-5 rounded-2xl bg-card p-4">
+    <div className="qr-card flex items-center gap-4 rounded-2xl p-3.5">
       <div className="shrink-0 rounded-xl bg-foreground p-2.5">
         <QRCodeSVG
           value={url}
