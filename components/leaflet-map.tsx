@@ -17,10 +17,11 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     const map = new LeafletMap(containerRef.current, {
       center: [20, 0],
       zoom: 2,
-      minZoom: 1.5,
+      // El zoom mínimo cubre todo el viewport con teselas; evita revelar el fondo fuera del mundo.
+      minZoom: 2,
       maxZoom: 5,
-      // Mantiene la vista dentro del área cartográfica y evita arrastrar hacia arriba.
-      maxBounds: [[-60, -180], [70, 180]],
+      // Limita el arrastre al mundo visible y rebota contra los bordes sin dejar bandas blancas.
+      maxBounds: [[-58, -180], [70, 180]],
       maxBoundsViscosity: 1,
       zoomControl: true,
       attributionControl: true,
