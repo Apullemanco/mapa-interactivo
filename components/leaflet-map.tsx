@@ -19,11 +19,12 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       zoom: 2,
       minZoom: 1.5,
       maxZoom: 5,
-      maxBounds: [[-60, -180], [78, 180]],
+      // Mantiene la vista dentro del área cartográfica y evita arrastrar hacia arriba.
+      maxBounds: [[-60, -180], [70, 180]],
       maxBoundsViscosity: 1,
       zoomControl: true,
       attributionControl: true,
-      worldCopyJump: true,
+      worldCopyJump: false,
     })
 
     new TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
