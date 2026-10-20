@@ -37,8 +37,8 @@ export function LiveBoard({
       <section aria-label="Mapa de participantes" className="origins-map absolute inset-0">
         <LeafletMapView pins={snapshot.pins} />
       </section>
-      <div className="pointer-events-none absolute inset-0 z-10 p-5 md:p-8 lg:p-10">
-        <div className="pointer-events-auto ml-auto w-full max-w-sm lg:w-80">
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-start p-5 md:p-8 lg:p-10">
+        <div className="pointer-events-auto w-full max-w-sm lg:w-80">
           <QrPanel url={registerUrl} />
         </div>
       </div>

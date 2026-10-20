@@ -2,8 +2,6 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { getPlaceById } from '@/lib/geocoding'
 import { addRegistration, getSnapshot } from '@/lib/store'
-import { projectToMap } from '@/lib/world-map'
-
 const COOKIE = 'jdc_registrado'
 
 export const dynamic = 'force-dynamic'
@@ -46,19 +44,12 @@ export async function POST(request: Request) {
     )
   }
 
-  const point = projectToMap(place.lat, place.lng)
-  if (!point) {
-    return NextResponse.json(
-      { error: 'Esa ubicación está fuera del mapa.' },
-      { status: 422 },
-    )
-  }
-
   const record = addRegistration({
     city: place.name.slice(0, 60),
     region: place.region,
-    x: point.x,
-    y: point.y,
+    // Leaflet recibe longitud como x y latitud como y.
+    x: place.lng,
+    y: place.lat,
   })
 
   const response = NextResponse.json({
