@@ -17,11 +17,11 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     const map = new LeafletMap(containerRef.current, {
       center: [20, 0],
       zoom: 2,
-      // El zoom mínimo cubre todo el viewport con teselas; evita revelar el fondo fuera del mundo.
-      minZoom: 2,
-      maxZoom: 5,
-      // Limita el arrastre al mundo visible y rebota contra los bordes sin dejar bandas blancas.
-      maxBounds: [[-72, -180], [78, 180]],
+      // Mantiene un único mundo visible y evita que el mapa se repita al arrastrar.
+      minZoom: 3,
+      maxZoom: 6,
+      // El límite vertical contiene el mapa dentro de las teselas, sin desplazamiento infinito.
+      maxBounds: [[-60, -180], [75, 180]],
       maxBoundsViscosity: 1,
       inertia: true,
       bounceAtZoomLimits: false,
@@ -32,6 +32,7 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
 
     new TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 19,
+      noWrap: true,
       attribution: 'Tiles © Esri',
     }).addTo(map)
 
@@ -50,14 +51,14 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     markersRef.current = pins.map((pin) => {
       const latitude = 70 - (pin.y / 80) * 125
       const longitude = (pin.x / 180) * 360 - 180
-      return new CircleMarker([latitude, longitude], {
-        radius: Math.min(12, 5 + pin.count * 1.2),
-        color: '#c8f54a',
-        weight: 2,
-        fillColor: '#c8f54a',
+      return       new CircleMarker([latitude, longitude], {
+        radius: 5,
+        color: '#d9ff55',
+        weight: 1,
+        fillColor: '#d9ff55',
         fillOpacity: 0.9,
         bubblingPointerEvents: false,
-      }).bindTooltip(`${pin.count} origin${pin.count === 1 ? '' : 's'}`, { direction: 'top', opacity: 0.9 }).addTo(map)
+      }).addTo(map)
     })
   }, [pins])
 

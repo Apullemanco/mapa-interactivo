@@ -65,19 +65,13 @@
   body { @apply bg-background text-foreground font-sans; }
 }
 
-.origins-shell {
-  background: radial-gradient(ellipse at 52% 48%, #344840 0%, #182321 34%, #090b0d 78%);
-  isolation: isolate;
-}
-.origins-shell::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse at center, transparent 48%, rgba(0,0,0,.48) 100%); }
-.origins-header, .origins-map { z-index: 1; }
-.origins-shell::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .2; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, black, transparent 75%); }
-.origins-header { position: relative; }
+.origins-shell { background: #101716; isolation: isolate; }
+.origins-map { z-index: 1; }
 .origin-wordmark { font-size: 1.05rem; font-weight: 700; letter-spacing: .26em; }
 .origin-subtitle { margin-top: .55rem; color: #969b95; font-size: .66rem; text-transform: uppercase; letter-spacing: .19em; }
 .live-pill { display: flex; align-items: center; gap: .55rem; border: 1px solid rgba(241,240,232,.16); border-radius: 999px; padding: .65rem .9rem; background: rgba(9,11,13,.46); color: #d5d8d0; font-size: .72rem; text-transform: uppercase; letter-spacing: .13em; backdrop-filter: blur(14px); }
 .live-dot { width: .42rem; height: .42rem; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px var(--primary); }
-.origins-map { padding: 5.5rem 5vw 4.2rem; }
+.origins-map { padding: 0; }
  .leaflet-map { width: 100%; height: 100%; min-height: 28rem; overflow: hidden; border-radius: 1.5rem; background: #101716; filter: saturate(.78) contrast(1.08) brightness(.72); box-shadow: 0 18px 50px rgba(0,0,0,.38), 0 0 0 1px rgba(217,255,85,.08); }
 .leaflet-map::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 100px rgba(0,0,0,.48); z-index: 400; }
  .leaflet-container { width: 100%; height: 100%; font-family: inherit; background: #101716; }
