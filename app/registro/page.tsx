@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { RegistrationForm } from '@/components/registration-form'
 
 export const metadata: Metadata = {
-  title: 'Siembra tu ciudad · Jardín de las Carreras',
-  description: 'Registra tu ciudad de origen y aparece en el mapa en vivo.',
+  title: 'Origen de la comunidad · Jardín de las Carreras',
+  description: 'Registra la ciudad de origen de nuestra comunidad estudiantil.'
 }
 
 export default function RegistroPage() {

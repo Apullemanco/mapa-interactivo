@@ -81,7 +81,7 @@ export function RegistrationForm() {
           </p>
         </div>
         <p className="leading-relaxed text-muted-foreground text-pretty">
-          Mira la pantalla grande: tu punto acaba de florecer.
+          Tu ciudad ya forma parte del mapa de nuestra comunidad estudiantil.
         </p>
       </div>
     )
