@@ -20,7 +20,7 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       // naturalmente por la pantalla y sin repetirlo horizontalmente.
       zoom: 3,
       minZoom: 3,
-      maxZoom: 19,
+      maxZoom: 22,
       maxBounds: [[-58, -180], [78, 180]],
       maxBoundsViscosity: 1,
       inertia: true,
@@ -31,7 +31,8 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     })
 
     new TileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 19,
+      maxNativeZoom: 19,
+      maxZoom: 22,
       noWrap: true,
       attribution: 'Tiles © Esri',
     }).addTo(map)
