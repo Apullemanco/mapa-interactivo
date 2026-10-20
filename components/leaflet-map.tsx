@@ -6,10 +6,17 @@ import 'leaflet/dist/leaflet.css'
 
 type Pin = { x: number; y: number; count: number; last: number }
 
-export function LeafletMapView({ pins }: { pins: Pin[] }) {
+type LeafletMapViewProps = {
+  pins?: Pin[]
+  onPick?: (coordinates: { lat: number; lng: number }) => void
+  picked?: { lat: number; lng: number } | null
+}
+
+export function LeafletMapView({ pins = [], onPick, picked }: LeafletMapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<LeafletMapInstance | null>(null)
   const markersRef = useRef<CircleMarker[]>([])
+  const pickedMarkerRef = useRef<CircleMarker | null>(null)
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
@@ -37,6 +44,10 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       attribution: 'Tiles © Esri',
     }).addTo(map)
 
+    if (onPick) {
+      map.on('click', (event) => onPick({ lat: event.latlng.lat, lng: event.latlng.lng }))
+    }
+
     mapRef.current = map
     return () => {
       map.remove()
@@ -63,5 +74,21 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     })
   }, [pins])
 
-  return <div ref={containerRef} className="leaflet-map" aria-label="Mapa satelital interactivo de orígenes" />
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    pickedMarkerRef.current?.remove()
+    pickedMarkerRef.current = picked
+      ? new CircleMarker([picked.lat, picked.lng], {
+          radius: 7,
+          color: '#ffffff',
+          weight: 2,
+          fillColor: '#d9ff55',
+          fillOpacity: 1,
+          bubblingPointerEvents: false,
+        }).addTo(map)
+      : null
+  }, [picked])
+
+  return <div ref={containerRef} className="leaflet-map" aria-label="Mapa satelital interactivo; toca para seleccionar tu origen" />
 }

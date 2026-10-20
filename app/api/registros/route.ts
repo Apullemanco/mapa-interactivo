@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { getPlaceById } from '@/lib/geocoding'
 import { addRegistration, getSnapshot } from '@/lib/store'
 const COOKIE = 'jdc_registrado'
 
@@ -28,15 +27,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 400 })
   }
 
-  const payload = body as { id?: unknown; lat?: unknown; lng?: unknown }
-  const id = payload.id
-  if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
-    return NextResponse.json(
-      { error: 'Selecciona una ciudad de la lista.' },
-      { status: 400 },
-    )
-  }
-
+  const payload = body as { lat?: unknown; lng?: unknown }
   const suppliedLat = payload.lat
   const suppliedLng = payload.lng
   const hasCoordinates =
@@ -49,21 +40,15 @@ export async function POST(request: Request) {
     suppliedLng >= -180 &&
     suppliedLng <= 180
 
-  const place = await getPlaceById(id)
-  if (!place) {
-    return NextResponse.json(
-      { error: 'No encontramos esa ciudad. Intenta de nuevo.' },
-      { status: 404 },
-    )
+  if (!hasCoordinates) {
+    return NextResponse.json({ error: 'Selecciona un punto en el mapa.' }, { status: 400 })
   }
 
   const record = addRegistration({
-    city: place.name.slice(0, 60),
-    region: place.region,
-    // Usamos las coordenadas de la ciudad elegida en el buscador.
-    // Leaflet recibe longitud como x y latitud como y.
-    x: hasCoordinates ? suppliedLng : place.lng,
-    y: hasCoordinates ? suppliedLat : place.lat,
+    city: 'Origen seleccionado',
+    region: 'Comunidad estudiantil',
+    x: suppliedLng,
+    y: suppliedLat,
   })
 
   const response = NextResponse.json({

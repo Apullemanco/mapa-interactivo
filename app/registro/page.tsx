@@ -14,11 +14,10 @@ export default function RegistroPage() {
           Jardín de las Carreras
         </p>
         <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-balance">
-          Pon tu ciudad en el mapa
+          Marca tu origen en el mapa
         </h1>
         <p className="leading-relaxed text-muted-foreground text-pretty">
-          Busca la ciudad de donde vienes. Solo mostramos el nombre de la ciudad
-          y su región: no guardamos datos personales.
+          Toca directamente el lugar de donde vienes para marcarlo. No guardamos datos personales.
         </p>
       </header>
       <RegistrationForm />
