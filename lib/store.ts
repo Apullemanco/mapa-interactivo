@@ -50,13 +50,17 @@ export function getSnapshot(): BoardSnapshot {
 
   for (const r of all) {
     regionCounts.set(r.region, (regionCounts.get(r.region) ?? 0) + 1)
-    const key = `${r.x}:${r.y}`
+    // Corrige registros antiguos que guardaron Saltillo con latitud/longitud invertidas.
+    const isSaltillo = r.city.trim().toLocaleLowerCase() === 'saltillo'
+    const x = isSaltillo ? -100.99 : r.x
+    const y = isSaltillo ? 25.42 : r.y
+    const key = `${x}:${y}`
     const pin = pinMap.get(key)
     if (pin) {
       pin.count += 1
       pin.last = Math.max(pin.last, r.createdAt)
     } else {
-      pinMap.set(key, { x: r.x, y: r.y, count: 1, last: r.createdAt })
+      pinMap.set(key, { x, y, count: 1, last: r.createdAt })
     }
   }
 

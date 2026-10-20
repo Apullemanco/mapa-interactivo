@@ -28,13 +28,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Solicitud inválida.' }, { status: 400 })
   }
 
-  const id = (body as { id?: unknown })?.id
+  const payload = body as { id?: unknown; lat?: unknown; lng?: unknown }
+  const id = payload.id
   if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
     return NextResponse.json(
       { error: 'Selecciona una ciudad de la lista.' },
       { status: 400 },
     )
   }
+
+  const suppliedLat = payload.lat
+  const suppliedLng = payload.lng
+  const hasCoordinates =
+    typeof suppliedLat === 'number' &&
+    typeof suppliedLng === 'number' &&
+    Number.isFinite(suppliedLat) &&
+    Number.isFinite(suppliedLng) &&
+    suppliedLat >= -90 &&
+    suppliedLat <= 90 &&
+    suppliedLng >= -180 &&
+    suppliedLng <= 180
 
   const place = await getPlaceById(id)
   if (!place) {
@@ -47,9 +60,10 @@ export async function POST(request: Request) {
   const record = addRegistration({
     city: place.name.slice(0, 60),
     region: place.region,
+    // Usamos las coordenadas de la ciudad elegida en el buscador.
     // Leaflet recibe longitud como x y latitud como y.
-    x: place.lng,
-    y: place.lat,
+    x: hasCoordinates ? suppliedLng : place.lng,
+    y: hasCoordinates ? suppliedLat : place.lat,
   })
 
   const response = NextResponse.json({

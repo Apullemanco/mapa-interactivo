@@ -15,14 +15,14 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
     if (!containerRef.current || mapRef.current) return
 
     const map = new LeafletMap(containerRef.current, {
-      center: [20, 0],
-      // A este nivel el mundo completo supera el ancho de una pantalla grande,
-      // evitando que Leaflet duplique el mapa para rellenar el viewport.
-      zoom: 3,
-      minZoom: 3,
-      maxZoom: 6,
-      // Un solo mundo: el arrastre se detiene exactamente en sus bordes.
-      maxBounds: [[-85, -180], [85, 180]],
+      center: [18, 0],
+      // Zoom mínimo 4: el ancho del mundo es mayor que la pantalla de evento,
+      // así Leaflet no necesita repetirlo horizontalmente.
+      zoom: 4,
+      minZoom: 4,
+      maxZoom: 7,
+      // Un único mundo visible: el arrastre queda limitado a sus bordes.
+      maxBounds: [[-78, -180], [82, 180]],
       maxBoundsViscosity: 1,
       inertia: true,
       bounceAtZoomLimits: false,

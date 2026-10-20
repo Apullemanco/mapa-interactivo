@@ -10,6 +10,8 @@ type Place = {
   name: string
   area: string | null
   region: string
+  lat: number
+  lng: number
 }
 
 const fetcher = async (url: string) => {
@@ -51,7 +53,11 @@ export function RegistrationForm() {
       const res = await fetch('/api/registros', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: selected.id }),
+        body: JSON.stringify({
+          id: selected.id,
+          lat: selected.lat,
+          lng: selected.lng,
+        }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'No se pudo registrar.')
@@ -188,10 +194,10 @@ export function RegistrationForm() {
         {status === 'submitting' ? (
           <>
             <Loader2 className="size-5 animate-spin" aria-hidden="true" />
-            Sembrando…
+            Registrando…
           </>
         ) : (
-          'Sembrar mi punto'
+          'Registrar mi origen'
         )}
       </Button>
     </form>
