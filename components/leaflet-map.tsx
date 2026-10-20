@@ -20,7 +20,7 @@ export function LeafletMapView({ pins }: { pins: Pin[] }) {
       // naturalmente por la pantalla y sin repetirlo horizontalmente.
       zoom: 3,
       minZoom: 3,
-      maxZoom: 7,
+      maxZoom: 19,
       maxBounds: [[-58, -180], [78, 180]],
       maxBoundsViscosity: 1,
       inertia: true,
