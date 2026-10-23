@@ -89,8 +89,8 @@
 .map-controls button:hover { background: var(--primary); color: var(--primary-foreground); }
 .map-caption { position: absolute; left: 2rem; bottom: 2rem; display: flex; align-items: center; gap: .55rem; color: #969b95; font-size: .67rem; text-transform: uppercase; letter-spacing: .2em; }
 .map-caption-line { display: inline-block; width: 1.6rem; height: 1px; background: var(--primary); }
-.qr-card { border: 1px solid rgba(217,255,85,.22); background: linear-gradient(145deg, rgba(28,35,32,.94), rgba(12,15,15,.92)); box-shadow: 0 22px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(18px); }
-.qr-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(217,255,85,.08), transparent 42%); }
+.qr-card { border: 1px solid rgba(18,184,216,.46); background: linear-gradient(145deg, rgba(5,48,65,.96), rgba(4,19,29,.96)); box-shadow: 0 22px 70px rgba(0,0,0,.48), 0 0 32px rgba(18,184,216,.14), inset 0 1px 0 rgba(128,235,255,.16); backdrop-filter: blur(18px); }
+.qr-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(18,184,216,.18), transparent 48%); }
 .qr-card p:first-of-type { font-size: 1.05rem; }
 .origin-counter { color: #969b95; font-size: .7rem; letter-spacing: .13em; text-transform: uppercase; }
 .origin-counter span { color: var(--primary); font-size: 1rem; font-weight: 700; margin-right: .35rem; }
@@ -123,10 +123,22 @@
 @keyframes twinkle {
   0%,
   100% {
-    opacity: 1;
+    opacity: 0.72;
   }
   50% {
-    opacity: 0.55;
+    opacity: 1;
+  }
+}
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.72);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.08);
   }
 }
 
@@ -140,7 +152,7 @@
 }
 
 .pin-glow {
-  animation: twinkle 3.2s ease-in-out infinite;
+  animation: neon-pulse 2.2s ease-in-out infinite;
 }
 
 .pin-ripple {

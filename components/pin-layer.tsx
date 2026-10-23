@@ -20,8 +20,8 @@ export function PinLayer({
               className="pin pin-glow"
               cx={pin.x}
               cy={pin.y}
-              r={r * 3.2}
-              opacity={0.22}
+              r={r * 4.4}
+              opacity={0.42}
               filter="url(#pin-blur)"
             />
             {fresh && (

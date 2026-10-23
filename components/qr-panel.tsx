@@ -15,7 +15,7 @@ export function QrPanel({ url }: { url: string }) {
       </div>
       <div className="flex min-w-0 flex-col gap-1.5">
         <p className="font-heading text-2xl font-semibold leading-tight text-balance">
-          Registra tu ciudad de origen
+          Registra tu ciudad
         </p>
       </div>
     </div>
