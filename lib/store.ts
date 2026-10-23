@@ -25,9 +25,15 @@ export type BoardSnapshot = {
  */
 const globalForStore = globalThis as unknown as {
   __registrations?: Registration[]
+  __registrationsVersion?: string
 }
 
 function getAll(): Registration[] {
+  // Cambiar la versión reinicia los registros de demostración del proceso actual.
+  if (globalForStore.__registrationsVersion !== 'empty-2026-10-23') {
+    globalForStore.__registrations = []
+    globalForStore.__registrationsVersion = 'empty-2026-10-23'
+  }
   if (!globalForStore.__registrations) globalForStore.__registrations = []
   return globalForStore.__registrations
 }

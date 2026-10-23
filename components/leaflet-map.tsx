@@ -65,9 +65,9 @@ export function LeafletMapView({ pins = [], onPick, picked }: LeafletMapViewProp
       // por lo que Leaflet puede posicionarlas directamente sin una segunda proyección.
       return new CircleMarker([pin.y, pin.x], {
         radius: 5,
-        color: '#d9ff55',
+        color: '#12b8d8',
         weight: 1,
-        fillColor: '#d9ff55',
+        fillColor: '#12b8d8',
         fillOpacity: 0.9,
         bubblingPointerEvents: false,
       }).addTo(map)
@@ -81,9 +81,9 @@ export function LeafletMapView({ pins = [], onPick, picked }: LeafletMapViewProp
     pickedMarkerRef.current = picked
       ? new CircleMarker([picked.lat, picked.lng], {
           radius: 7,
-          color: '#ffffff',
+          color: '#b9f5ff',
           weight: 2,
-          fillColor: '#d9ff55',
+          fillColor: '#12b8d8',
           fillOpacity: 1,
           bubblingPointerEvents: false,
         }).addTo(map)
